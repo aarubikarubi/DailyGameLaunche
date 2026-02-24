@@ -21,7 +21,7 @@
 
 ## 🛠️ インストール
 
-1. [Releases](https://github.com/aarubikarubi/DailyGameLauncher/releases) から最新の `DailyGameLauncher_Setup.exe` をダウンロードします。
+1. [Releases](https://github.com/aarubikarubi/DailyGameLauncher/releases) から最新の `DailyGameLauncher_Setup.exe` (v2.0.0以降) をダウンロードします。
 2. インストーラーを実行してPCにインストールしてください（タスクトレイやデスクトップにショートカットが作成されます）。
 
 ## 📖 使い方
