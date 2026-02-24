@@ -4,8 +4,10 @@ import threading
 from core import GameMonitor, State
 import time
 import sys
+import os
 import setup_ui
 import keyboard
+import update_manager
 
 def create_image():
     # シンプルなアイコン（緑色の四角形）を生成
@@ -54,13 +56,13 @@ def action_reset(icon, monitor):
 
 def action_settings():
     if 'app' in globals() and app:
-        app.after(0, app.show_window)
+        app.safe_show()
 
 def action_exit(icon, monitor):
     monitor.stop()
     icon.stop()
     if 'app' in globals() and app:
-        app.after(0, app.quit_app)
+        app.safe_quit()
 
 def monitor_state_changes(icon, monitor):
     # 状態が変わったときにメニュー表記を更新するバックグラウンドタスク
@@ -78,7 +80,10 @@ def monitor_state_changes(icon, monitor):
         time.sleep(1)
 
 if __name__ == "__main__":
-    monitor = GameMonitor()
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(base_dir, "config.json")
+    
+    monitor = GameMonitor(config_path=config_path)
     monitor.start()
     
     def on_settings_close():
@@ -88,13 +93,16 @@ if __name__ == "__main__":
             update_icon_menu(icon, monitor)
             
     # GUIのインスタンスをメインスレッドで作成
-    app = setup_ui.GameSetupApp("config.json", on_close_callback=on_settings_close, monitor=monitor)
+    app = setup_ui.GameSetupApp(config_path, on_close_callback=on_settings_close, monitor=monitor)
+    
+    # 起動時の自動アップデート確認
+    update_manager.check_and_apply_updates(app.window)
     
     # --startup 引数がある場合のみタスクトレイに最小化して起動
     if "--startup" in sys.argv:
         app.withdraw()
         
-    icon = pystray.Icon("DailyChainLauncher", create_image(), "日課連鎖ランチャー")
+    icon = pystray.Icon("DailyChainLauncher", create_image(), "日課ツール")
     update_menu(icon, monitor)
     
     # メニュー更新用スレッド

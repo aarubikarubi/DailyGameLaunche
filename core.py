@@ -16,8 +16,11 @@ class State(Enum):
     WUTHERING_WAVES = 3
 
 class GameMonitor:
-    def __init__(self, config_path="config.json"):
-        self.config_path = config_path
+    def __init__(self, config_path=None):
+        if config_path is None:
+            self.config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+        else:
+            self.config_path = config_path
         self.state = State.STANDBY
         self.waiting_for_launch = False
         self.launch_sleep_remaining = 0

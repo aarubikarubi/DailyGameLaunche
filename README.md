@@ -1,9 +1,14 @@
-# 🚀 日課連鎖ランチャー (Daily Chain Launcher)
+# 🚀 日課ツール (Daily Game Launcher)
 
 毎日のゲーム日課を、1クリックで。
 複数のゲームを登録し、1つを閉じると次のゲームが自動で起動する「連鎖型」のゲームランチャーです。
 
 ![Main UI Mockup](https://raw.githubusercontent.com/aarubikarubi/DailyGameLauncher/main/preview.png)
+
+---
+**🤖 開発手法の正直な開示**: 
+このアプリは、Google DeepMindの[Antigravity](https://github.com/google/antigravity)を活用して**全自動で構築**されたものです。基本的なコーディングからデザイン、インストーラーの作成に至るまで、すべてAIによって自律的に作成されました。
+---
 
 ## ✨ 特徴
 
@@ -13,12 +18,12 @@
 - **複数アプリ対応**: 最大999（UI上はスクロール可能）までゲームを登録可能。
 - **裏方アプリ同時終了**: ゲーム終了に合わせて特定のexe（Steam, Epic, HoYoPlay等）を自動で終了できます。
 - **自動終了オプション**: 全ての日課が終わったらランチャー自体も自動終了するように設定可能。
-- **モダンなUI**: CustomTkinterを採用したクリーンで使いやすいデザイン。
+- **モダンなUI**: PyQt6を採用したクリーンで使いやすいフラットデザイン。
 
 ## 🛠️ インストール
 
-1. [Releases](https://github.com/aarubikarubi/DailyGameLauncher/releases) から最新の `日課連鎖ランチャー.exe` をダウンロードします。
-2. 任意のフォルダに配置して実行してください。
+1. [Releases](https://github.com/aarubikarubi/DailyGameLauncher/releases) から最新の `DailyGameLauncher_Setup.exe` をダウンロードします。
+2. インストーラーを実行してPCにインストールしてください（タスクトレイやデスクトップにショートカットが作成されます）。
 
 ## 📖 使い方
 
@@ -36,17 +41,17 @@
 
 ## 👨‍💻 開発者向け
 
-このプロジェクトは Python 3.14+ と CustomTkinter で構築されています。
+このプロジェクトは Python 3.14+ と PyQt6 で構築されています。
 
 ```bash
 # 依存関係のインストール
-pip install customtkinter pystray Pillow psutil keyboard
+pip install PyQt6 pystray Pillow psutil keyboard
 
 # 実行
 python main.py
 
-# ビルド (PyInstaller)
-python -m PyInstaller --noconfirm DailyGameLauncher.spec
+# ビルド (PyInstaller & Inno Setup)
+build.cmd を実行後、DailyGameLauncher.iss をコンパイル
 ```
 
 ## 📄 ライセンス
